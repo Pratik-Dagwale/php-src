@@ -294,6 +294,12 @@ PHP_FUNCTION(json_decode)
 		Z_PARAM_LONG(options)
 	ZEND_PARSE_PARAMETERS_END();
 
+	if ((options & (PHP_JSON_INVALID_UTF8_IGNORE | PHP_JSON_INVALID_UTF8_SUBSTITUTE))
+			== (PHP_JSON_INVALID_UTF8_IGNORE | PHP_JSON_INVALID_UTF8_SUBSTITUTE)) {
+		zend_argument_value_error(4, "must not include both JSON_INVALID_UTF8_IGNORE and JSON_INVALID_UTF8_SUBSTITUTE");
+		RETURN_THROWS();
+	}
+
 	if (!(options & PHP_JSON_THROW_ON_ERROR)) {
 		php_json_error_details_clear(&JSON_G(error_details));
 	}

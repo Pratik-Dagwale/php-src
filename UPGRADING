@@ -19,6 +19,11 @@ PHP 8.7 UPGRADE NOTES
 1. Backward Incompatible Changes
 ========================================
 
+- JSON:
+  . json_decode() now throws a ValueError when JSON_INVALID_UTF8_IGNORE and
+    JSON_INVALID_UTF8_SUBSTITUTE are both specified in the flags argument.
+    Previously, JSON_INVALID_UTF8_SUBSTITUTE took precedence.
+
 - PDO:
   . PDOStatement::bindColumn() now throws a ValueError when the column name is
     not present in the result set. It previously reported the condition
